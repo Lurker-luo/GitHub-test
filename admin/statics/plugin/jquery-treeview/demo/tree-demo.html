@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh_cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../jquery.treeview.css" />
+    <link rel="stylesheet" href="../red-treeview.css" />
+	<link rel="stylesheet" href="screen.css" />
+	
+	<script src="../lib/jquery.js" type="text/javascript"></script>
+	<script src="../lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="../jquery.treeview.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#browser").treeview({});
+
+		$("#btn1").click(function(){
+			var c = $("input[name='ids']:checked");
+			
+			alert(c.length);
+		})
+
+		$("#btn2").click(function(){
+			var h = $("input[name='ids']:indeterminate");
+			alert(h.length);
+		})
+		
+	});
+	
+	function findParent(p,checked) {
+		 $("input[id='"+p+"']").attr("indeterminate",checked);
+	}
+	function child(e) {
+		var pId = e.id;
+		var checked = e.checked;
+		var p = $("#"+pId+"").attr("pId");
+		
+		if(checked) {
+			findParent(p,checked);
+			var children = $("input[pId='"+pId+"']");
+			for(var i = 0; i < children.length; i++){
+				$(children[i]).attr("checked", checked);
+			}
+
+			var checkLevelLengh = $("input[pId='"+p+"']:checked").length;
+			var levelLengh = $("input[pId='"+p+"']").length;
+			if(checkLevelLengh == levelLengh) {
+				$("#"+p+"").removeAttr("indeterminate");
+				$("#"+p+"").attr("checked",checked);
+			}
+		}else {
+			var children = $("input[pId='"+pId+"']");
+			for(var i = 0; i < children.length; i++){
+				$(children[i]).attr("checked", checked);
+			}
+
+			var checkLevelLengh = $("input[pId='"+p+"']:checked").length;
+			if(checkLevelLengh == 0) {
+				$("#"+p+"").removeAttr("indeterminate");
+				$("#"+p+"").attr("checked",checked);
+			}else {
+				$("#"+p+"").attr("indeterminate",true);
+			}
+		}
+	}
+
+	</script>
+</head>
+<body>
+<button id="btn1" >获取选中数量</button>
+<button id="btn2" >获取半选中数量</button>
+<div id="main">
+	<ul id='browser' class='filetree'>
+		
+		<li><span class='folder'><input type="checkbox" name="ids" id="t3" pId="t0" value="3" onchange="child(this)"/>产品展示</span>
+			<ul>
+				<li><span class='file'><input type="checkbox" name="ids" id='t12' pId="t3" value="12" onchange="child(this)"/>网站建设</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t13" pId="t3" value="13" onchange="child(this)"/>软件开发</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t14" pId="t3" value="14" onchange="child(this)"/>短信群发</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t22" pId="t3" value="22" onchange="child(this)"/>网络推广</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t23" pId="t3" value="23" onchange="child(this)"/>平面设计</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t24" pId="t3" value="24" onchange="child(this)"/>虚拟主机</span></li>
+			</ul>
+		</li>
+		<li><span class='folder'><input type="checkbox" name="ids" id="t4" pId="t0" value="4" onchange="child(this)"/>招贤纳士</span>
+			<ul>
+				<li><span class='file'><input type="checkbox" name="ids" id="t15" pId="t4" value="15" onchange="child(this)"/>招聘信息</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t16" pId="t4" value="16" onchange="child(this)"/>人才理念</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t17" pId="t4" value="17" onchange="child(this)"/>培训制度</span></li>
+			</ul>
+		</li>
+		<li><span class='folder'><input type="checkbox" name="ids" id="t5" pId="t0" value="5" onchange="child(this)"/>营销网络</span>
+			<ul>
+				<li><span class='file'><input type="checkbox" name="ids" id="t18" pId="t5" value="18" onchange="child(this)"/>网络地图</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t19" pId="t5" value="19" onchange="child(this)"/>市场政策</span></li>
+			</ul>
+		</li>
+		<li><span class='folder'><input type="checkbox" name="ids" id="t6" pId="t0" value="6" onchange="child(this)"/>在线留言</span>
+		<li><span class='folder'><input type="checkbox" name="ids" id="t7" pId="t0" value="7" onchange="child(this)"/>联系方式</span>
+			<ul>
+				<li><span class='file'><input type="checkbox" name="ids" id="t20" pId="t7" value="20" onchange="child(this)"/>联系方式</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t21" pId="t7" value="21" onchange="child(this)"/>联系地图</span></li>
+			</ul>
+		</li>
+		<li><span class='folder'><input type="checkbox" name="ids" id="t28" pId="t2" value="28" onchange="child(this)"/>资料下载</span>
+			<ul>
+				<li><span class='file'><input type="checkbox" name="ids" id="t29" pId="t28" value="29" onchange="child(this)"/>产品资料</span></li>
+				<li><span class='file'><input type="checkbox" name="ids" id="t30" pId="t28" value="30" onchange="child(this)"/>其它资料</span></li>
+			</ul>
+		</li>
+	</ul>
+</div>	
+</body>
+</html>

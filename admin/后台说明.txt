@@ -1,0 +1,14 @@
+初始账号：jooli
+初始密码：jooli_botuu
+
+注意修改网站的路径和端口号
+$config['base_url'] = 'http://127.0.0.1/admin/';
+
+$config['sess_driver'] = 'files';
+$config['sess_cookie_name'] = 'ci_session';
+$config['sess_expiration'] = 7200;
+$config['sess_save_path'] = '/session_file';//注意这个不然会出现错误
+$config['sess_match_ip'] = TRUE;
+$config['sess_time_to_update'] = 300;
+$config['sess_regenerate_destroy'] = FALSE;
+
